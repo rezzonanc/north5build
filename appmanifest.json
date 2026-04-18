@@ -1,0 +1,11 @@
+{
+	"name": "north-5",
+	"short_name": "north-5",
+	"description": "",
+	"start_url": "index.html",
+	"display": "fullscreen",
+	"orientation": "landscape",
+	"background_color": "#ffffff",
+	"icons": [],
+	"screenshots": []
+}
