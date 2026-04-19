@@ -1865,7 +1865,6 @@ self.C3_ExpressionFuncs = [
 			return () => n0.ExpInstVar();
 		},
 		() => -5,
-		() => "eee",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
