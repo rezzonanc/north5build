@@ -1394,6 +1394,11 @@ const C3=self.C3,C3X=self.C3X,IBehaviorInstance=self.IBehaviorInstance,Ease=self
 {const e=self.C3;e.Behaviors.Timer=class extends e.SDKBehaviorBase{constructor(e){super(e)}Release(){super.Release()}}}{const e=self.C3;e.Behaviors.Timer.Type=class extends e.SDKBehaviorTypeBase{constructor(e){super(e)}Release(){super.Release()}OnCreate(){}}}{const e=self.C3,t=self.C3X,r=self.IBehaviorInstance;e.Behaviors.Timer.SingleTimer=class{constructor(t,r,i,s){this._current=e.New(e.KahanSum),this._current.Set(t||0),this._total=e.New(e.KahanSum),this._total.Set(r||0),this._duration=i||0,this._isRegular=!!s,this._isPaused=!1}GetCurrentTime(){return this._current.Get()}GetTotalTime(){return this._total.Get()}GetDuration(){return this._duration}SetPaused(e){this._isPaused=!!e}IsPaused(){return this._isPaused}Add(e){this._current.Add(e),this._total.Add(e)}HasFinished(){return this._current.Get()>=this._duration}Update(){if(this.HasFinished()){if(!this._isRegular)return!0;this._current.Subtract(this._duration)}return!1}SaveToJson(){return{"c":this._current.Get(),"t":this._total.Get(),"d":this._duration,"r":this._isRegular,"p":this._isPaused}}LoadFromJson(e){this._current.Set(e["c"]),this._total.Set(e["t"]),this._duration=e["d"],this._isRegular=!!e["r"],this._isPaused=!!e["p"]}},e.Behaviors.Timer.Instance=class extends e.SDKBehaviorInstanceBase{constructor(e,t){super(e),this._timers=new Map}Release(){this._timers.clear(),super.Release()}_StartTimer(t,r,i){const s=new e.Behaviors.Timer.SingleTimer(0,0,t,i);this._timers.set(r.toLowerCase(),s),this._UpdateTickState()}_StopTimer(e){this._timers.delete(e.toLowerCase()),this._UpdateTickState()}_StopAllTimers(){this._timers.clear(),this._UpdateTickState()}_IsTimerRunning(e){return this._timers.has(e.toLowerCase())}_GetTimerCurrentTime(e){const t=this._timers.get(e.toLowerCase());return t?t.GetCurrentTime():0}_GetTimerNormalizedProgress(e){const t=this._timers.get(e.toLowerCase());return t?t.GetCurrentTime()/t.GetDuration():0}_GetTimerTotalTime(e){const t=this._timers.get(e.toLowerCase());return t?t.GetTotalTime():0}_GetTimerDuration(e){const t=this._timers.get(e.toLowerCase());return t?t.GetDuration():0}_HasTimerFinished(e){const t=this._timers.get(e.toLowerCase());return!!t&&t.HasFinished()}_SetTimerPaused(e,t){const r=this._timers.get(e.toLowerCase());r&&r.SetPaused(t)}_IsTimerPaused(e){const t=this._timers.get(e.toLowerCase());return!!t&&t.IsPaused()}_SetAllTimersPaused(e){for(const t of this._timers.values())t.SetPaused(e)}_UpdateTickState(){this._timers.size>0?(this._StartTicking(),this._StartTicking2()):(this._StopTicking(),this._StopTicking2())}SaveToJson(){const e={};for(const[t,r]of this._timers.entries())e[t]=r.SaveToJson();return e}LoadFromJson(t){this._timers.clear();for(const[r,i]of Object.entries(t)){const t=new e.Behaviors.Timer.SingleTimer;t.LoadFromJson(i),this._timers.set(r,t)}this._UpdateTickState()}Tick(){const e=this._runtime.GetDt(this._inst);for(const[t,r]of this._timers)r.IsPaused()||(r.Add(e),r.HasFinished()&&this.DispatchScriptEvent("timer",!1,{tag:t}))}Tick2(){for(const[e,t]of this._timers.entries()){t.Update()&&this._timers.delete(e)}}GetDebuggerProperties(){return[{title:"behaviors.timer.debugger.timers",properties:[...this._timers.entries()].map(e=>({name:"$"+e[0],value:`${Math.round(10*e[1].GetCurrentTime())/10} / ${Math.round(10*e[1].GetDuration())/10}`}))}]}GetScriptInterfaceClass(){return self.ITimerBehaviorInstance}};const i=["once","regular"];self.ITimerBehaviorInstance=class extends r{#e;constructor(){super(),this.#e=r._GetInitInst().GetSdkInstance()}startTimer(e,r,s="once"){t.RequireFiniteNumber(e),t.RequireString(r);const a=i.indexOf(s);if(-1===a)throw new Error("invalid type");this.#e._StartTimer(e,r,1===a)}setTimerPaused(e,r){t.RequireString(e),this.#e._SetTimerPaused(e,!!r)}setAllTimersPaused(e){this.#e._SetAllTimersPaused(!!e)}stopTimer(e){t.RequireString(e),this.#e._StopTimer(e)}stopAllTimers(){this.#e._StopAllTimers()}isTimerRunning(e){return t.RequireString(e),this.#e._IsTimerRunning(e)}isTimerPaused(e){return t.RequireString(e),this.#e._IsTimerPaused(e)}getCurrentTime(e){return t.RequireString(e),this.#e._GetTimerCurrentTime(e)}getNormalizedProgress(e){return t.RequireString(e),this.#e._GetTimerNormalizedProgress(e)}getTotalTime(e){return t.RequireString(e),this.#e._GetTimerTotalTime(e)}getDuration(e){return t.RequireString(e),this.#e._GetTimerDuration(e)}hasFinished(e){return t.RequireString(e),this.#e._HasTimerFinished(e)}}}self.C3.Behaviors.Timer.Cnds={OnTimer(e){return this._HasTimerFinished(e)},IsTimerRunning(e){return this._IsTimerRunning(e)},IsTimerPaused(e){return this._IsTimerPaused(e)}};self.C3.Behaviors.Timer.Acts={StartTimer(e,t,r){this._StartTimer(e,r,1===t)},StopTimer(e){this._StopTimer(e)},StopAllTimers(){this._StopAllTimers()},PauseResumeTimer(e,t){this._SetTimerPaused(e,0===t)},PauseResumeAllTimers(e){this._SetAllTimersPaused(0===e)}};self.C3.Behaviors.Timer.Exps={CurrentTime(e){return this._GetTimerCurrentTime(e)},NormalizedProgress(e){return this._GetTimerNormalizedProgress(e)},TotalTime(e){return this._GetTimerTotalTime(e)},Duration(e){return this._GetTimerDuration(e)}};
 }
 
+// scripts/behaviors/scrollto/c3runtime/runtime.js
+{
+{const e=self.C3;e.Behaviors.scrollto=class extends e.SDKBehaviorBase{constructor(e){super(e),this._shakeMag=0,this._shakeStart=0,this._shakeEnd=0,this._shakeMode=0}Release(){super.Release()}SetShakeMagnitude(e){this._shakeMag=e}GetShakeMagnitude(){return this._shakeMag}SetShakeStart(e){this._shakeStart=e}GetShakeStart(){return this._shakeStart}SetShakeEnd(e){this._shakeEnd=e}GetShakeEnd(){return this._shakeEnd}SetShakeMode(e){this._shakeMode=e}GetShakeMode(){return this._shakeMode}}}{const e=self.C3;e.Behaviors.scrollto.Type=class extends e.SDKBehaviorTypeBase{constructor(e){super(e)}Release(){super.Release()}OnCreate(){}}}{const e=self.C3,t=0;e.Behaviors.scrollto.Instance=class extends e.SDKBehaviorInstanceBase{constructor(e,s){super(e),this._isEnabled=!0,s&&(this._isEnabled=s[t]),this._isEnabled&&this._StartTicking2()}Release(){super.Release()}SaveToJson(){const e=this.GetBehavior();return{"e":this._isEnabled,"smg":e.GetShakeMagnitude(),"ss":e.GetShakeStart(),"se":e.GetShakeEnd(),"smd":e.GetShakeMode()}}LoadFromJson(e){const t=this.GetBehavior();t.SetShakeMagnitude(e["smg"]),t.SetShakeStart(e["ss"]),t.SetShakeEnd(e["se"]),t.SetShakeMode(e["smd"]),this._isEnabled=e["e"],this._isEnabled?this._StartTicking2():this._StopTicking2()}_SetEnabled(e){this._isEnabled=!!e,this._isEnabled?this._StartTicking2():this._StopTicking2()}IsEnabled(){return this._isEnabled}Tick2(){if(!this.IsEnabled())return;const t=this.GetBehavior(),s=t.GetInstances();let a=0,i=0,h=0,n=0;for(const t of s){const s=t.GetBehaviorInstanceFromCtor(e.Behaviors.scrollto);if(!s||!s.GetSdkInstance().IsEnabled())continue;n=Math.max(n,t.GetActiveTimeScale());const r=t.GetWorldInfo();a+=r.GetX(),i+=r.GetY(),++h}const r=this._inst.GetWorldInfo().GetLayout(),o=this._runtime.GetGameTime();let S=0,l=0;const d=(t.GetShakeEnd()-t.GetShakeStart())/n;if(o>=t.GetShakeStart()&&o<t.GetShakeStart()+d&&n>0){let e=t.GetShakeMagnitude()*Math.min(n,1);0===t.GetShakeMode()&&(e*=1-(o-t.GetShakeStart())/d);const s=this._runtime.Random()*Math.PI*2,a=this._runtime.Random()*e;S=Math.cos(s)*a,l=Math.sin(s)*a}r.SetScrollX(a/h+S),r.SetScrollY(i/h+l)}GetPropertyValueByIndex(e){if(e===t)return this._isEnabled}SetPropertyValueByIndex(e,s){if(e===t)this._isEnabled=!!s,this._isEnabled?this._StartTicking2():this._StopTicking2()}GetDebuggerProperties(){return[{title:"$"+this.GetBehaviorType().GetName(),properties:[{name:"behaviors.scrollto.properties.enabled.name",value:this.IsEnabled(),onedit:e=>this._SetEnabled(e)}]}]}}}self.C3.Behaviors.scrollto.Cnds={IsEnabled(){return this.IsEnabled()}};self.C3.Behaviors.scrollto.Acts={Shake(e,t,s){const a=this.GetBehavior();a.SetShakeMagnitude(e),a.SetShakeStart(this._runtime.GetGameTime()),a.SetShakeEnd(this._runtime.GetGameTime()+t),a.SetShakeMode(s)},SetEnabled(e){this._SetEnabled(0!==e)}};self.C3.Behaviors.scrollto.Exps={};
+}
+
 // scripts/expTable.js
 {
 
@@ -1519,7 +1524,35 @@ self.C3_ExpressionFuncs = [
 		() => "",
 		() => "en",
 		() => 0,
-		() => -1000,
+		() => "hint_text",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 1);
+		},
+		() => "title",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 0, "_");
+		},
+		() => "from",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 1, "_");
+		},
+		() => "main_text",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			return () => n0.ExpObject(v1.GetValue(), (n2.ExpInstVar() + 1));
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -1538,6 +1571,7 @@ self.C3_ExpressionFuncs = [
 		() => -28,
 		() => 0.4,
 		() => "gameover",
+		() => "settings",
 		() => "|",
 		() => "_",
 		p => {
@@ -1633,6 +1667,8 @@ self.C3_ExpressionFuncs = [
 		() => 5,
 		() => 6,
 		() => 7,
+		() => 14,
+		() => 15,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -1672,6 +1708,11 @@ self.C3_ExpressionFuncs = [
 		() => 11,
 		() => 12,
 		() => 13,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (1 - v0.GetValue());
+		},
+		() => -1,
 		() => "battlefield",
 		() => "gameplay",
 		() => "X",
@@ -1742,37 +1783,19 @@ self.C3_ExpressionFuncs = [
 			const n5 = p._GetNode(5);
 			return () => (n0.ExpObject() + Math.round((f1((n2.ExpObject() - n3.ExpObject()), (n4.ExpObject() - n5.ExpObject())) * 0.9)));
 		},
-		() => 640,
-		() => 325,
-		() => "title",
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			const v2 = p._GetNode(2).GetVar();
-			const n3 = p._GetNode(3);
-			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 0, "_");
-		},
-		() => "from",
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			const v2 = p._GetNode(2).GetVar();
-			const n3 = p._GetNode(3);
-			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 1, "_");
-		},
-		() => "main_text",
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			const n2 = p._GetNode(2);
-			return () => n0.ExpObject(v1.GetValue(), (n2.ExpInstVar() + 1));
-		},
-		() => "new_indicator",
-		() => "new_messages_counter",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
+		() => -5,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => or(((v0.GetValue()) === ("email") ? 1 : 0), "settings");
+		},
+		() => 640,
+		() => 325,
+		() => "new_indicator",
+		() => "new_messages_counter",
 		() => "outline",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1791,7 +1814,7 @@ self.C3_ExpressionFuncs = [
 			return () => ((v0.GetValue() * 2) + 1);
 		},
 		() => "storyline",
-		() => "hint_text",
+		() => 0.5,
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
@@ -1803,13 +1826,34 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject(v1.GetValue(), 10);
 		},
-		() => "tutorial",
-		() => 0.5,
+		() => "volume_select",
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject(v1.GetValue(), 1);
-		}
+			const v2 = p._GetNode(2).GetVar();
+			return () => and(and(n0.ExpObject(v1.GetValue(), 2), ": "), v2.GetValue());
+		},
+		() => "language_select",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			const v3 = p._GetNode(3).GetVar();
+			return () => and(and(n0.ExpObject(v1.GetValue(), 3), ": "), n2.ExpObject(v3.GetValue(), 4));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => C3.clamp((v0.GetValue() + v1.GetValue()), 0, 5);
+		},
+		() => "ru",
+		() => "tutorial",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (0 - (30 - (v0.GetValue() * 6)));
+		},
+		() => -30,
+		() => -1000
 ];
 
 

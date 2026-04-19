@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        6,
+        2,
         11,
         1
     ],
@@ -14,13 +14,13 @@
                 "Introduction_Command"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Welcome to base NORTH-5. You are required, by typing commands in the console, to scan the radar, aim the crosshair, and eliminate enemy forces. Movement commands: “left”, “right”, “up”, “down”. Then specify the number of cells to move the crosshair. For scanning, type “scan”, and “fire” to shoot. Return to your duties - the first enemy has already appeared on the radar. To close the message, type “close”; to return to work, type “back”."
             ],
             [
                 "Mail 1_Command"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Scan the battlefield: type “scan” in the console. The dots are enemies. Aim at the enemy using the commands “left”, “right”, “up”, and “down”. Type “fire” to shoot. Example commands: “left 4 up 2 fire”, “down 3 right 4 scan”. You can use “scan” and “fire” separately as well. You can switch between emails using the “up” and “down” commands. Don’t forget to scan the battlefield. Check your mail. Good luck!"
             ],
             [
                 "Mail 2_Command"
@@ -49,13 +49,13 @@
                 "Введение_Командование"
             ],
             [
-                "Добро пожаловать на базу СЕВЕР-5. Вы обязаны, печатая команды в консоль,: сканировать радар, наводить прицел, уничтожать силы врага. Команды для перемещения: \"лево\", \"право\", \"верх\", \"низ\". Далее впишите количество клеток на которое нужно сместить прицел. Для сканирования: \"скан\" и \"огонь\" для выстрела. Чтобы закрыть письмо, напишите \"закрыть\", чтобы вернуться к работе, напишите \"назад\". Для подробной информации напишите \"помощь\"."
+                "Добро пожаловать на базу СЕВЕР-5. Вы обязаны, печатая команды в консоль,: сканировать радар, наводить прицел, уничтожать силы врага. Команды для перемещения: \"лево\", \"право\", \"верх\", \"низ\". Далее впишите количество клеток на которое нужно сместить прицел. Для сканирования: \"скан\" и \"огонь\" для выстрела. Вернитесь к работе, на радаре уже появился первый враг. Чтобы закрыть письмо, напишите \"закрыть\", чтобы вернуться к работе, напишите \"назад\". "
             ],
             [
-                "Письмо 1_Командование"
+                "Инструкция_Командование"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Сканируй поле боя: набери \"скан\" в консоль. Точки - это враги. Наведи прицел на врага, используй команды \"лево\", \"право\", \"верх\", \"низ\". Набери \"огонь\" чтобы произвести выстрел. Пример команд: \"лево 4 верх 2 огонь\", \"низ 3 право 4 скан\". Команды \"скан\" и \"огонь\" ты можешь использовать и раздельно. Ты можешь выбирать письма переключаясь между ними командами \"верх\" и \"низ\". Не забывай сканировать поле. Проверяй почту. Удачи!"
             ],
             [
                 "Письмо 2_Командование"
@@ -74,146 +74,6 @@
             ],
             [
                 "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
-            ]
-        ],
-        [
-            [
-                "fr"
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ]
-        ],
-        [
-            [
-                "es"
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ]
-        ],
-        [
-            [
-                "pt"
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ]
-        ],
-        [
-            [
-                "de"
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
-            ],
-            [
-                ""
             ]
         ]
     ]
