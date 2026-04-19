@@ -1,0 +1,220 @@
+{
+    "c2array": true,
+    "size": [
+        6,
+        11,
+        1
+    ],
+    "data": [
+        [
+            [
+                "en"
+            ],
+            [
+                "Introduction_Command"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Mail 1_Command"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Mail 2_Command"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Mail 3_Command"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Mail 4_Command"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ]
+        ],
+        [
+            [
+                "ru"
+            ],
+            [
+                "Введение_Командование"
+            ],
+            [
+                "Добро пожаловать на базу СЕВЕР-5. Вы обязаны, печатая команды в консоль,: сканировать радар, наводить прицел, уничтожать силы врага. Команды для перемещения: \"лево\", \"право\", \"верх\", \"низ\". Далее впишите количество клеток на которое нужно сместить прицел. Для сканирования: \"скан\" и \"огонь\" для выстрела. Чтобы закрыть письмо, напишите \"закрыть\", чтобы вернуться к работе, напишите \"назад\". Для подробной информации напишите \"помощь\"."
+            ],
+            [
+                "Письмо 1_Командование"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Письмо 2_Командование"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Письмо 3_Командование"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ],
+            [
+                "Письмо 4_Командование"
+            ],
+            [
+                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+            ]
+        ],
+        [
+            [
+                "fr"
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ]
+        ],
+        [
+            [
+                "es"
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ]
+        ],
+        [
+            [
+                "pt"
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ]
+        ],
+        [
+            [
+                "de"
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ]
+        ]
+    ]
+}

@@ -2,7 +2,7 @@
 
 const scriptsInEvents = {
 
-	async Main_es_Event9_Act1(runtime, localVars)
+	async Main_es_Event15_Act1(runtime, localVars)
 	{
 		runtime.globalVars.lang = navigator.language.split('-')[0];
 	}

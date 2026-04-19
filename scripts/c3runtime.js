@@ -1389,6 +1389,11 @@ const C3=self.C3,C3X=self.C3X,IBehaviorInstance=self.IBehaviorInstance,Ease=self
 {const e=self.C3;e.Behaviors.MoveTo=class extends e.SDKBehaviorBase{constructor(e){super(e)}Release(){super.Release()}}}{const e=self.C3;e.Behaviors.MoveTo.Type=class extends e.SDKBehaviorTypeBase{constructor(e){super(e)}Release(){super.Release()}OnCreate(){}}}{const e=self.C3,t=self.C3X,i=self.IBehaviorInstance,s=0,n=1,a=2,o=3,r=4,h=5,_=6;e.Behaviors.MoveTo.Instance=class extends e.SDKBehaviorInstanceBase{constructor(t,i){super(t),this._maxSpeed=200,this._acc=600,this._dec=600,this._rotateSpeed=0,this._setAngle=!0,this._stopOnSolids=!1,this._isEnabled=!0,this._speed=0,this._movingAngle=this.GetWorldInfo().GetAngle(),this._waypoints=[],i&&(this._maxSpeed=i[s],this._acc=i[n],this._dec=i[a],this._rotateSpeed=e.toRadians(i[o]),this._setAngle=i[r],this._stopOnSolids=i[h],this._isEnabled=i[_]),this._timelineInfo=null,this._lastTargetX=NaN,this._lastTargetY=NaN,this._lastTargetAngle=NaN,this._tRange=[0,0],this._timelineInfoProjectionRange={tRange:this._tRange}}Release(){this._timelineInfo&&(this._timelineInfo.Release(),this._timelineInfo=null),this._lastTargetX=NaN,this._lastTargetY=NaN,this._lastTargetAngle=NaN,this._tRange=null,this._timelineInfoProjectionRange=null,super.Release()}SaveToJson(){return{"ms":this._maxSpeed,"acc":this._acc,"dec":this._dec,"rs":this._rotateSpeed,"sa":this._setAngle,"sos":this._stopOnSolids,"s":this._speed,"ma":this._movingAngle,"wp":this._waypoints.map(e=>({"x":e.x,"y":e.y})),"e":this._isEnabled}}LoadFromJson(e){this._maxSpeed=e["ms"],this._acc=e["acc"],this._dec=e["dec"],this._rotateSpeed=e["rs"],this._setAngle=e["sa"],this._stopOnSolids=e["sos"],this._speed=e["s"],this._movingAngle=e["ma"],this._waypoints=e["wp"].map(e=>({x:e["x"],y:e["y"]})),this._SetEnabled(e["e"]),this._isEnabled&&this._waypoints.length>0&&this._StartTicking()}_AddWaypoint(t,i,s,n){s&&e.clearArray(this._waypoints),this._waypoints.push({x:t,y:i,opts:n}),this._isEnabled&&this._StartTicking()}_GetWaypointCount(){return this._waypoints.length}_GetWaypointXAt(e){return(e=Math.floor(e))<0||e>=this._waypoints.length?0:this._waypoints[e].x}_GetWaypointYAt(e){return(e=Math.floor(e))<0||e>=this._waypoints.length?0:this._waypoints[e].y}_IsMoving(){return this._waypoints.length>0}_Stop(){e.clearArray(this._waypoints),this._speed=0,this._StopTicking()}_GetTargetX(){return this._waypoints.length>0?this._waypoints[0].x:0}_GetTargetY(){return this._waypoints.length>0?this._waypoints[0].y:0}_GetTargetIsBezier(){if(this._waypoints.length>0){const e=this._waypoints[0];if(e.opts)return e.opts.isBezier}return!1}_GetTargetIsBezierFirst(){if(this._waypoints.length>0){const e=this._waypoints[0];if(e.opts)return e.opts.isBezier&&e.opts.isFirst}return!1}_GetTargetBezierAngle(){if(this._waypoints.length>0){const e=this._waypoints[0];if(e.opts)return e.opts.bezierAngle}return NaN}_SetSpeed(e){this._IsMoving()&&(this._speed=Math.min(e,this._maxSpeed))}_GetSpeed(){return this._speed}_SetMaxSpeed(e){this._maxSpeed=Math.max(e,0),this._SetSpeed(this._speed)}_GetMaxSpeed(){return this._maxSpeed}_IsRotationEnabled(){return 0!==this._rotateSpeed}Tick(){if(!this._isEnabled||!this._IsMoving())return;const t=this._runtime.GetDt(this._inst),i=this._inst.GetWorldInfo(),s=i.GetX(),n=i.GetY(),a=i.GetAngle();let o=this._speed,r=this._maxSpeed;const h=this._acc,_=this._dec,l=this._GetTargetX(),g=this._GetTargetY(),d=e.angleTo(s,n,l,g);let p=!1;if(_>0&&1===this._waypoints.length){const t=.5*o*o/_*1.0001;if(p=e.distanceSquared(s,n,l,g)<=t*t,p){const t=e.distanceTo(s,n,l,g);o=Math.sqrt(2*_*t),r=o,this._speed=o}}if(this._IsRotationEnabled()){const t=e.angleDiff(this._movingAngle,d);if(t>Number.EPSILON){const s=t/this._rotateSpeed,n=e.distanceTo(i.GetX(),i.GetY(),l,g)/(2*Math.sin(t))*t;r=Math.min(r,e.clamp(n/s,0,this._maxSpeed))}}let c=p?-_:h;const S=Math.min(o*t+.5*c*t*t,r*t);if(p){if(_>0&&(this._speed=Math.max(this._speed-_*t,0),0===this._speed))return void this._OnArrived(i,l,g)}else this._speed=0===h?r:Math.min(this._speed+h*t,r);if(e.distanceSquared(i.GetX(),i.GetY(),l,g)<=S*S)this._OnArrived(i,l,g);else{if(this._IsRotationEnabled()?this._movingAngle=e.angleRotate(this._movingAngle,d,this._rotateSpeed*t):this._movingAngle=d,i.OffsetXY(Math.cos(this._movingAngle)*S,Math.sin(this._movingAngle)*S),this._setAngle){const t=this._GetTargetIsBezier(),s=this._GetTargetIsBezierFirst();if(t&&!s){const t=e.distanceTo(this._lastTargetX,this._lastTargetY,i.GetX(),i.GetY())/e.distanceTo(this._lastTargetX,this._lastTargetY,l,g);i.SetAngle(e.angleLerp(this._lastTargetAngle,this._GetTargetBezierAngle(),t))}else i.SetAngle(this._movingAngle),this._lastTargetX=NaN,this._lastTargetY=NaN,this._lastTargetAngle=NaN}i.SetBboxChanged(),this._CheckSolidCollision(s,n,a)}}_OnArrived(t,i,s){t.SetXY(i,s);const n=this._waypoints[0];n.opts&&n.opts.isBezier?(this._lastTargetX=n.x,this._lastTargetY=n.y,this._lastTargetAngle=n.opts.bezierAngle,this._setAngle&&t.SetAngle(this._lastTargetAngle)):(this._lastTargetX=NaN,this._lastTargetY=NaN,this._lastTargetAngle=NaN),t.SetBboxChanged(),this._waypoints.shift(),0===this._waypoints.length&&(this._timelineInfo&&(this._timelineInfo.Release(),this._timelineInfo=null,this._lastTargetX=NaN,this._lastTargetY=NaN,this._lastTargetAngle=NaN),this._speed=0,this._StopTicking()),this.DispatchScriptEvent("arrived"),this.Trigger(e.Behaviors.MoveTo.Cnds.OnArrived)}_CheckSolidCollision(t,i,s){const n=this._runtime.GetCollisionEngine();if(this._stopOnSolids&&n.TestOverlapSolid(this._inst)){this._Stop();const a=this._inst.GetWorldInfo(),o=a.GetX(),r=a.GetY(),h=e.angleTo(o,r,t,i),_=e.distanceTo(o,r,t,i);n.PushOutSolid(this._inst,Math.cos(h),Math.sin(h),Math.max(_,1))||(a.SetXY(t,i),a.SetAngle(s),a.SetBboxChanged()),this.DispatchScriptEvent("hitsolid"),this.Trigger(e.Behaviors.MoveTo.Cnds.OnHitSolid)}}_IsSetAngle(){return this._setAngle}_SetSetAngle(e){this._setAngle=!!e}_SetAngleOfMotion(e){if(this._movingAngle=e,this._isEnabled&&this._setAngle&&!this._IsMoving()){const e=this.GetWorldInfo();e.SetAngle(this._movingAngle),e.SetBboxChanged()}}_GetAngleOfMotion(){return this._movingAngle}_SetAcceleration(e){this._acc=Math.max(e,0)}_GetAcceleration(){return this._acc}_SetDeceleration(e){this._dec=Math.max(e,0)}_GetDeceleration(){return this._dec}_SetRotateSpeed(e){this._rotateSpeed=Math.max(e,0)}_GetRotateSpeed(){return this._rotateSpeed}_SetStopOnSolids(e){this._stopOnSolids=!!e}_IsStopOnSolids(){return this._stopOnSolids}_SetEnabled(e){e=!!e,this._isEnabled!==e&&(this._isEnabled=e,this._isEnabled&&this._IsMoving()?this._StartTicking():this._StopTicking())}_IsEnabled(){return this._isEnabled}GetPropertyValueByIndex(t){switch(t){case s:return this._GetMaxSpeed();case n:return this._GetAcceleration();case a:return this._GetDeceleration();case o:return e.toDegrees(this._GetRotateSpeed());case r:return this._IsSetAngle();case h:return this._IsStopOnSolids();case _:return this._IsEnabled()}}SetPropertyValueByIndex(t,i){switch(t){case s:this._SetMaxSpeed(i);break;case n:this._SetAcceleration(i);break;case a:this._SetDeceleration(i);break;case o:this._SetRotateSpeed(e.toRadians(i));break;case r:this._SetSetAngle(i);break;case h:this._SetStopOnSolids(i);break;case _:this._SetEnabled(i)}}GetDebuggerProperties(){const t="behaviors.moveto";return[{title:"$"+this.GetBehaviorType().GetName(),properties:[{name:t+".debugger.speed",value:this._GetSpeed(),onedit:e=>this._SetSpeed(e)},{name:t+".debugger.angle-of-motion",value:e.toDegrees(this._GetAngleOfMotion()),onedit:t=>this._movingAngle=e.toRadians(t)},{name:t+".debugger.target-x",value:this._GetTargetX()},{name:t+".debugger.target-y",value:this._GetTargetY()},{name:t+".debugger.waypoint-count",value:this._GetWaypointCount()},{name:t+".properties.max-speed.name",value:this._GetMaxSpeed(),onedit:e=>this._SetMaxSpeed(e)},{name:t+".properties.acceleration.name",value:this._GetAcceleration(),onedit:e=>this._SetAcceleration(e)},{name:t+".properties.deceleration.name",value:this._GetDeceleration(),onedit:e=>this._SetDeceleration(e)},{name:t+".properties.rotate-speed.name",value:e.toDegrees(this._GetRotateSpeed()),onedit:t=>this._SetRotateSpeed(e.toRadians(t))},{name:t+".properties.enabled.name",value:this._IsEnabled(),onedit:e=>this._SetEnabled(e)}]}]}GetScriptInterfaceClass(){return self.IMoveToBehaviorInstance}};const l=new WeakMap;self.IMoveToBehaviorInstance=class extends i{constructor(){super(),l.set(this,i._GetInitInst().GetSdkInstance())}moveToPosition(e,i,s=!0){t.RequireFiniteNumber(e),t.RequireFiniteNumber(i),l.get(this)._AddWaypoint(e,i,!!s)}getTargetX(){return l.get(this)._GetTargetX()}getTargetY(){return l.get(this)._GetTargetY()}getTargetPosition(){const e=l.get(this);return[e._GetTargetX(),e._GetTargetY()]}getWaypointCount(){return l.get(this)._GetWaypointCount()}getWaypointX(e){return t.RequireFiniteNumber(e),l.get(this)._GetWaypointXAt(e)}getWaypointY(e){return t.RequireFiniteNumber(e),l.get(this)._GetWaypointYAt(e)}getWaypoint(e){t.RequireFiniteNumber(e);const i=l.get(this);return[i._GetWaypointXAt(e),i._GetWaypointYAt(e)]}stop(){l.get(this)._Stop()}get isMoving(){return l.get(this)._IsMoving()}get speed(){return l.get(this)._GetSpeed()}set speed(e){t.RequireFiniteNumber(e),l.get(this)._SetSpeed(e)}get maxSpeed(){return l.get(this)._GetMaxSpeed()}set maxSpeed(e){t.RequireFiniteNumber(e),l.get(this)._SetMaxSpeed(e)}get acceleration(){return l.get(this)._GetAcceleration()}set acceleration(e){t.RequireFiniteNumber(e),l.get(this)._SetAcceleration(e)}get deceleration(){return l.get(this)._GetDeceleration()}set deceleration(e){t.RequireFiniteNumber(e),l.get(this)._SetDeceleration(e)}get angleOfMotion(){return l.get(this)._GetAngleOfMotion()}set angleOfMotion(e){t.RequireFiniteNumber(e),l.get(this)._SetAngleOfMotion(e)}get rotateSpeed(){return l.get(this)._GetRotateSpeed()}set rotateSpeed(e){t.RequireFiniteNumber(e),l.get(this)._SetRotateSpeed(e)}get isStopOnSolids(){return l.get(this)._IsStopOnSolids()}set isStopOnSolids(e){l.get(this)._SetStopOnSolids(e)}get isEnabled(){return l.get(this)._IsEnabled()}set isEnabled(e){l.get(this)._SetEnabled(e)}}}{const e=self.C3;e.Behaviors.MoveTo.Cnds={IsMoving(){return this._IsMoving()},CompareSpeed(t,i){return e.compare(this._GetSpeed(),t,i)},IsEnabled(){return this._IsEnabled()},OnArrived:()=>!0,OnHitSolid:()=>!0}}{const e=self.C3,t=25;e.Behaviors.MoveTo.Acts={MoveToPosition(e,t,i){this._AddWaypoint(e,t,0===i)},MoveToObject(e,t,i){if(!e)return;const s=e.GetPairedInstance(this._inst);if(!s||!s.GetWorldInfo())return;const[n,a]=s.GetImagePoint(t);this._AddWaypoint(n,a,0===i)},MoveAlongPathfindingPath(t){const i=this._inst.GetBehaviorSdkInstanceFromCtor(e.Behaviors.Pathfinding);if(!i)return;const s=i._GetPath();if(0!==s.length)for(let e=0,i=s.length;e<i;++e){const i=s[e];this._AddWaypoint(i.x,i.y,0===e&&0===t)}},MoveAlongTimeline(i,s,n){const a=e.New(e.TimelineInfo,i,s);if(!a.WasInitialized())return void a.Release();a.SetOrigin(this._inst.GetWorldInfo());let o=!0;for(const i of a.segments())switch(i.GetType()){case"line":{const e=i.GetX(),t=i.GetY();this._AddWaypoint(e,t,o&&0===n),o=!1;break}case"cubic-bezier":for(let s=0;s<=i.GetStepCount();s++){const a=s*i.GetStepIncrement(),r=i.Map(a),h=r[0],_=r[1],l=this._GetWaypointXAt(this._GetWaypointCount()-1),g=this._GetWaypointYAt(this._GetWaypointCount()-1);!o&&e.IsFiniteNumber(l)&&e.IsFiniteNumber(g)&&e.distanceSquared(l,g,h,_)<t||(this._AddWaypoint(h,_,o&&0===n,{isBezier:!0,isFirst:o,bezierAngle:Math.atan2(_-g,h-l)}),o=!1)}}this._timelineInfo=a},MoveAlongTimelineByName(t,i,s){const n=this._runtime.GetTimelineManager().GetTimelineByName(t);n&&e.Behaviors.MoveTo.Acts.MoveAlongTimeline.call(this,n,i,s)},Stop(){this._Stop()},SetMovingAngle(t){this._SetAngleOfMotion(e.toRadians(t))},SetSpeed(e){this._SetSpeed(e)},SetMaxSpeed(e){this._SetMaxSpeed(e)},SetAcceleration(e){this._SetAcceleration(e)},SetDeceleration(e){this._SetDeceleration(e)},SetRotateSpeed(t){this._SetRotateSpeed(e.toRadians(t))},SetStopOnSolids(e){this._SetStopOnSolids(e)},SetEnabled(e){this._SetEnabled(e)}}}{const e=self.C3;e.Behaviors.MoveTo.Exps={Speed(){return this._GetSpeed()},MaxSpeed(){return this._GetMaxSpeed()},Acceleration(){return this._GetAcceleration()},Deceleration(){return this._GetDeceleration()},MovingAngle(){return e.toDegrees(this._GetAngleOfMotion())},RotateSpeed(){return e.toDegrees(this._GetRotateSpeed())},TargetX(){return this._GetTargetX()},TargetY(){return this._GetTargetY()},WaypointCount(){return this._GetWaypointCount()},WaypointXAt(e){return this._GetWaypointXAt(e)},WaypointYAt(e){return this._GetWaypointYAt(e)}}}
 }
 
+// scripts/behaviors/Timer/c3runtime/runtime.js
+{
+{const e=self.C3;e.Behaviors.Timer=class extends e.SDKBehaviorBase{constructor(e){super(e)}Release(){super.Release()}}}{const e=self.C3;e.Behaviors.Timer.Type=class extends e.SDKBehaviorTypeBase{constructor(e){super(e)}Release(){super.Release()}OnCreate(){}}}{const e=self.C3,t=self.C3X,r=self.IBehaviorInstance;e.Behaviors.Timer.SingleTimer=class{constructor(t,r,i,s){this._current=e.New(e.KahanSum),this._current.Set(t||0),this._total=e.New(e.KahanSum),this._total.Set(r||0),this._duration=i||0,this._isRegular=!!s,this._isPaused=!1}GetCurrentTime(){return this._current.Get()}GetTotalTime(){return this._total.Get()}GetDuration(){return this._duration}SetPaused(e){this._isPaused=!!e}IsPaused(){return this._isPaused}Add(e){this._current.Add(e),this._total.Add(e)}HasFinished(){return this._current.Get()>=this._duration}Update(){if(this.HasFinished()){if(!this._isRegular)return!0;this._current.Subtract(this._duration)}return!1}SaveToJson(){return{"c":this._current.Get(),"t":this._total.Get(),"d":this._duration,"r":this._isRegular,"p":this._isPaused}}LoadFromJson(e){this._current.Set(e["c"]),this._total.Set(e["t"]),this._duration=e["d"],this._isRegular=!!e["r"],this._isPaused=!!e["p"]}},e.Behaviors.Timer.Instance=class extends e.SDKBehaviorInstanceBase{constructor(e,t){super(e),this._timers=new Map}Release(){this._timers.clear(),super.Release()}_StartTimer(t,r,i){const s=new e.Behaviors.Timer.SingleTimer(0,0,t,i);this._timers.set(r.toLowerCase(),s),this._UpdateTickState()}_StopTimer(e){this._timers.delete(e.toLowerCase()),this._UpdateTickState()}_StopAllTimers(){this._timers.clear(),this._UpdateTickState()}_IsTimerRunning(e){return this._timers.has(e.toLowerCase())}_GetTimerCurrentTime(e){const t=this._timers.get(e.toLowerCase());return t?t.GetCurrentTime():0}_GetTimerNormalizedProgress(e){const t=this._timers.get(e.toLowerCase());return t?t.GetCurrentTime()/t.GetDuration():0}_GetTimerTotalTime(e){const t=this._timers.get(e.toLowerCase());return t?t.GetTotalTime():0}_GetTimerDuration(e){const t=this._timers.get(e.toLowerCase());return t?t.GetDuration():0}_HasTimerFinished(e){const t=this._timers.get(e.toLowerCase());return!!t&&t.HasFinished()}_SetTimerPaused(e,t){const r=this._timers.get(e.toLowerCase());r&&r.SetPaused(t)}_IsTimerPaused(e){const t=this._timers.get(e.toLowerCase());return!!t&&t.IsPaused()}_SetAllTimersPaused(e){for(const t of this._timers.values())t.SetPaused(e)}_UpdateTickState(){this._timers.size>0?(this._StartTicking(),this._StartTicking2()):(this._StopTicking(),this._StopTicking2())}SaveToJson(){const e={};for(const[t,r]of this._timers.entries())e[t]=r.SaveToJson();return e}LoadFromJson(t){this._timers.clear();for(const[r,i]of Object.entries(t)){const t=new e.Behaviors.Timer.SingleTimer;t.LoadFromJson(i),this._timers.set(r,t)}this._UpdateTickState()}Tick(){const e=this._runtime.GetDt(this._inst);for(const[t,r]of this._timers)r.IsPaused()||(r.Add(e),r.HasFinished()&&this.DispatchScriptEvent("timer",!1,{tag:t}))}Tick2(){for(const[e,t]of this._timers.entries()){t.Update()&&this._timers.delete(e)}}GetDebuggerProperties(){return[{title:"behaviors.timer.debugger.timers",properties:[...this._timers.entries()].map(e=>({name:"$"+e[0],value:`${Math.round(10*e[1].GetCurrentTime())/10} / ${Math.round(10*e[1].GetDuration())/10}`}))}]}GetScriptInterfaceClass(){return self.ITimerBehaviorInstance}};const i=["once","regular"];self.ITimerBehaviorInstance=class extends r{#e;constructor(){super(),this.#e=r._GetInitInst().GetSdkInstance()}startTimer(e,r,s="once"){t.RequireFiniteNumber(e),t.RequireString(r);const a=i.indexOf(s);if(-1===a)throw new Error("invalid type");this.#e._StartTimer(e,r,1===a)}setTimerPaused(e,r){t.RequireString(e),this.#e._SetTimerPaused(e,!!r)}setAllTimersPaused(e){this.#e._SetAllTimersPaused(!!e)}stopTimer(e){t.RequireString(e),this.#e._StopTimer(e)}stopAllTimers(){this.#e._StopAllTimers()}isTimerRunning(e){return t.RequireString(e),this.#e._IsTimerRunning(e)}isTimerPaused(e){return t.RequireString(e),this.#e._IsTimerPaused(e)}getCurrentTime(e){return t.RequireString(e),this.#e._GetTimerCurrentTime(e)}getNormalizedProgress(e){return t.RequireString(e),this.#e._GetTimerNormalizedProgress(e)}getTotalTime(e){return t.RequireString(e),this.#e._GetTimerTotalTime(e)}getDuration(e){return t.RequireString(e),this.#e._GetTimerDuration(e)}hasFinished(e){return t.RequireString(e),this.#e._HasTimerFinished(e)}}}self.C3.Behaviors.Timer.Cnds={OnTimer(e){return this._HasTimerFinished(e)},IsTimerRunning(e){return this._IsTimerRunning(e)},IsTimerPaused(e){return this._IsTimerPaused(e)}};self.C3.Behaviors.Timer.Acts={StartTimer(e,t,r){this._StartTimer(e,r,1===t)},StopTimer(e){this._StopTimer(e)},StopAllTimers(){this._StopAllTimers()},PauseResumeTimer(e,t){this._SetTimerPaused(e,0===t)},PauseResumeAllTimers(e){this._SetAllTimersPaused(0===e)}};self.C3.Behaviors.Timer.Exps={CurrentTime(e){return this._GetTimerCurrentTime(e)},NormalizedProgress(e){return this._GetTimerNormalizedProgress(e)},TotalTime(e){return this._GetTimerTotalTime(e)},Duration(e){return this._GetTimerDuration(e)}};
+}
+
 // scripts/expTable.js
 {
 
@@ -1489,13 +1494,16 @@ function or(l, r)
 self.C3_ExpressionFuncs = [
 		() => "general",
 		() => "cheats",
-		() => "combat",
-		() => "local_commands",
-		() => -1000,
+		() => "typing",
+		() => "email",
+		() => "localization",
+		() => "local_messages",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
 		},
+		() => "local_other",
+		() => "local_commands",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
@@ -1511,6 +1519,7 @@ self.C3_ExpressionFuncs = [
 		() => "",
 		() => "en",
 		() => 0,
+		() => -1000,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -1520,16 +1529,16 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 16,
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() + 2);
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject(1);
 		},
 		() => 0.2,
 		() => "audio",
 		() => "main",
 		() => -28,
-		() => "typing",
 		() => 0.4,
-		() => "I",
+		() => "gameover",
+		() => "|",
 		() => "_",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1548,6 +1557,12 @@ self.C3_ExpressionFuncs = [
 			return () => and("input_sounds/input_sound_v", Math.round(f0(1, 5)));
 		},
 		() => -10,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpObject());
+		},
+		() => 37,
 		() => "Backspace",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -1557,8 +1572,12 @@ self.C3_ExpressionFuncs = [
 			return () => f0(v1.GetValue(), (f2(v3.GetValue()) - 1));
 		},
 		() => "input_sounds/input_sound_v5",
+		() => 0.3,
+		() => "backspace_hold",
 		() => "Enter",
 		() => "input_sounds/input_sound_v4",
+		() => 0.05,
+		() => "to",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -1613,7 +1632,48 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 5,
 		() => 6,
+		() => 7,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const v1 = p._GetNode(1).GetVar();
+			return () => f0(v1.GetValue(), 1, " ");
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject(0, 6);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 6);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject(0, 5);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 5);
+		},
+		() => 8,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => C3.clamp((v0.GetValue() + (2 * v1.GetValue())), 1, v2.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => C3.clamp((v0.GetValue() - (2 * v1.GetValue())), 1, v2.GetValue());
+		},
+		() => 11,
+		() => 12,
+		() => 13,
 		() => "battlefield",
+		() => "gameplay",
 		() => "X",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1645,17 +1705,19 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (n0.ExpObject() + (n1.ExpObject() / 2));
+			return () => n0.ExpObject("bottom");
 		},
 		() => 100,
 		() => "scan",
 		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject("top");
+		},
+		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() - 0.2);
+			return () => (v0.GetValue() - 0.1);
 		},
 		() => 0.1,
-		() => "to",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.round(f0(0, 9));
@@ -1670,7 +1732,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 25,
 		() => "pehota",
-		() => 37,
 		() => "solider",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1680,6 +1741,74 @@ self.C3_ExpressionFuncs = [
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
 			return () => (n0.ExpObject() + Math.round((f1((n2.ExpObject() - n3.ExpObject()), (n4.ExpObject() - n5.ExpObject())) * 0.9)));
+		},
+		() => 640,
+		() => 325,
+		() => "title",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 0, "_");
+		},
+		() => "from",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 1, "_");
+		},
+		() => "main_text",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			return () => n0.ExpObject(v1.GetValue(), (n2.ExpInstVar() + 1));
+		},
+		() => "new_indicator",
+		() => "new_messages_counter",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar();
+		},
+		() => "outline",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => (n0.ExpObject() - v1.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => (n0.ExpObject() + v1.GetValue());
+		},
+		() => "top",
+		() => "bottom",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => ((v0.GetValue() * 2) + 1);
+		},
+		() => "storyline",
+		() => "hint_text",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 9);
+		},
+		() => "gameover_subtitle",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 10);
+		},
+		() => "tutorial",
+		() => 0.5,
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 1);
 		}
 ];
 
