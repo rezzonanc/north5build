@@ -89,7 +89,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.BBoxLeft,
 		C3.Plugins.Sprite.Exps.BBoxRight,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
-		C3.Plugins.Browser.Acts.ConsoleLog,
 		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Behaviors.scrollto.Acts.Shake,
