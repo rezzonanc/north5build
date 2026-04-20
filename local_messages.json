@@ -2,7 +2,7 @@
     "c2array": true,
     "size": [
         2,
-        11,
+        23,
         1
     ],
     "data": [
@@ -26,19 +26,55 @@
                 "Hello_Falcon"
             ],
             [
-                "Hi, I’m the operator from the neighboring NORTH-4 base. Are you new here? My callsign is Falcon — nice to meet you. I’m really glad I finally have someone to talk to, because this job is deadly boring. Sitting on your ass all day, aiming the sights, and destroying blips on the radar would drive anyone to the grave. Anyway, we’ll talk again later. I can see two new contacts here, and judging by their speed, they’re tanks. Bye for now!"
+                "Hi, I’m the operator from the neighboring NORTH-4 base. Are you new here? My callsign is Falcon - nice to meet you. I’m really glad I finally have someone to talk to, because this job is deadly boring. Sitting on your ass all day, aiming the sights, and destroying blips on the radar would drive anyone to the grave. Anyway, we’ll talk again later. I can see two new contacts here, and judging by their speed, they’re tanks. Bye for now!"
             ],
             [
                 "No title_Falcon"
             ],
             [
-                "Falcon calling. How was your first day on the job? Didn’t fall asleep from boredom, did you? Better not doze off — if you do, the Ksarians will reach your base and capture you. Trust me, ending up as a prisoner of those bastards from Ksaria is worse than death. If that happened to me, I’d put myself down on the spot with the first thing I could grab."
+                "Falcon calling. How was your first day on the job? Didn’t fall asleep from boredom, did you? Better not doze off - if you do, the Ksarians will reach your base and capture you. Trust me, ending up as a prisoner of those bastards from Ksaria is worse than death. If that happened to me, I’d put myself down on the spot with the first thing I could grab."
             ],
             [
-                "Mail 4_Command"
+                "Interference_Command"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Interference will periodically appear on the radar, obstructing the targeting system. You are required to adapt to the changing conditions and continue carrying out your combat mission."
+            ],
+            [
+                "Callsign_Falcon"
+            ],
+            [
+                "Did I ever tell you why they gave me the callsign Falcon? I have a very high hit rate: almost every shot I fire destroys those damned Ksarians. That is why they nicknamed me Falcon - because, they say, I have eyesight as sharp as a falcon’s. Falcons can spot small prey from a distance of one kilometer. Just saying - I am not bragging, just sharing."
+            ],
+            [
+                "Thoughts Aloud_Falcon"
+            ],
+            [
+                "I do not mind that you are not replying to me. I understand: maybe you are shy, or afraid of being distracted from work by your mail. I do not care whether my messages get through. I write because I am bored. Sometimes, while destroying blips, I start thinking that Ksarians are soldiers just like me. They have names, thoughts, personalities, and people who love them and are waiting for them at home. These thoughts distract me from carrying out the mission. Do not let them in."
+            ],
+            [
+                "No title_Falcon"
+            ],
+            [
+                "If I were president, I would end this war in two days. On the morning of the first day, we would go into a full defensive stance and announce our desire to hold negotiations, and by the evening of the second day, all soldiers on both sides would be heading home. I've already destroyed too many dots on this damn radar, yet nothing has changed. To be honest, sometimes I wish I would become just another dot on someone’s radar, and my life would be ended by typing a single command into a console."
+            ],
+            [
+                "They are coming_Сокол"
+            ],
+            [
+                "There are more Ksarians now - be careful. It seems they are planning something. I may no longer be able to get in touch, since I have more work than I can handle."
+            ],
+            [
+                "No title_Falcon"
+            ],
+            [
+                "oh god help us there are too many of them they are already breaking through to the base command said there is a big blip on the radar and if we destroy it we can stop the offensive i’ll try to do it god save us"
+            ],
+            [
+                "Order_Command"
+            ],
+            [
+                "The enemy forces are advancing. The only way to stop them is to destroy the huge fat blip on the radar. It is a fuel depot - they will be wiped out by the explosion. You are ordered to destroy it. Act immediately."
             ]
         ],
         [
@@ -61,7 +97,7 @@
                 "Привет_Сокол"
             ],
             [
-                "Привет, я оператор с соседней базы «СЕВЕР-4». Ты новенький? Мой позывной — Сокол, приятно познакомиться. Я очень рад, что мне теперь есть с кем поговорить, ведь работа — скука смертная. Сидеть целый день на заднице, наводить прицел и уничтожать точки на радаре любого в могилу сведёт. Ну ладно, ещё спишемся: я тут вижу две новые точки, судя по скорости, это танки. Пока!"
+                "Привет, я оператор с соседней базы «СЕВЕР-4». Ты новенький? Мой позывной - Сокол, приятно познакомиться. Я очень рад, что мне теперь есть с кем поговорить, ведь работа - скука смертная. Сидеть целый день на заднице, наводить прицел и уничтожать точки на радаре любого в могилу сведёт. Ну ладно, ещё спишемся: я тут вижу две новые точки, судя по скорости, это танки. Пока!"
             ],
             [
                 "Без темы_Сокол"
@@ -70,10 +106,46 @@
                 "На связи Сокол. Как тебе первый рабочий день? Не уснул от скуки? Смотри не усни: если уснёшь, ксарийцы доберутся до твоей базы и захватят тебя. Поверь, попасть в плен к ублюдкам из Ксарии хуже смерти. Если бы со мной такое случилось, я бы прикончил себя на месте первым попавшимся под руку предметом."
             ],
             [
-                "Письмо 4_Командование"
+                "Помехи_Командование"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Периодически на радаре будут появляться помехи, которые будут препятствовать системе наведения. Вы обязаны адаптироваться под сложившиеся условия и продолжать выполнять свою боевую задачу. "
+            ],
+            [
+                "Позывной_Сокол"
+            ],
+            [
+                "Я рассказывал почему мне дали позывной Сокол? У меня очень высокий процент поражения цели, почти все мои выстрелы уничтожают проклятых ксарийцев. Поэтому меня прозвали Соколом, типо зрение хорошее как у сокола. Соколы способны заметить мелкую добычу с расстояния 1 километр. Если что я не хвастаюсь, просто поделился. "
+            ],
+            [
+                "Мысли вслух_Сокол"
+            ],
+            [
+                "Я не обижаюсь, что ты мне не отвечаешь. Понимаю: возможно, ты стесняешься или боишься отвлечься от работы на почту. Мне наплевать, доходят ли мои письма. Я пишу потому, что мне скучно. Иногда, уничтожая точки, я задумываюсь о том, что ксарийцы - такие же солдаты, как и я. У них есть имена, мысли, личность и люди, которые их любят и ждут дома. Эти мысли отвлекают меня от выполнения задачи. Не допускай их."
+            ],
+            [
+                "Без темы_Сокол"
+            ],
+            [
+                "Если бы я был президентом, я бы закончил эту войну за 2 дня. Утром первого дня мы бы ушли в глухую оборону и сообщили о желании провести переговоры, а к вечеру второго дня все солдаты с обеих сторон отправились бы домой. Я уничтожил уже слишком много точек на этом сраном радаре, но ничего так и не изменилось. Честно признаться, иногда я хочу чтобы я стал для кого-то такой же точкой на радаре и мою жизнь прервал бы ввод одной команды в консоль. "
+            ],
+            [
+                "Они идут_Сокол"
+            ],
+            [
+                "Ксарийцев становится больше, будь внимателен. Кажется они что-то задумали. Возможно, я больше не смогу выходить на связь, так как работы непочатый край. "
+            ],
+            [
+                "Без темы_Сокол"
+            ],
+            [
+                "господи помоги нам их слишком много они уже прорываются на базу командование сообщило о большой точке на радаре и уничтожив ее можно остановить наступление я попробую сделать это храни нас бог"
+            ],
+            [
+                "Приказ_Командование"
+            ],
+            [
+                "Силы врага наступают. Единственный способ остановить их - уничтожить огромную жирную точку на радаре. Это склад топлива, их накроет взрывом. Вам приказано уничтожить её. Действуйте незамедлительно."
             ]
         ]
     ]
