@@ -90,8 +90,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.PickDistance,
 		C3.Behaviors.Tween.Acts.TweenTwoProperties,
 		C3.Plugins.Sprite.Acts.ZMoveToObject,
-		C3.Plugins.Sprite.Exps.BBoxLeft,
-		C3.Plugins.Sprite.Exps.BBoxRight,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Behaviors.scrollto.Acts.Shake,
