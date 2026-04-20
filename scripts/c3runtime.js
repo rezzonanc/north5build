@@ -1515,6 +1515,12 @@ self.C3_ExpressionFuncs = [
 		() => "general",
 		() => "cheats",
 		() => "typing",
+		() => "spawn_enemy",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject();
+		},
+		() => "final_enemy",
 		() => 100,
 		() => 5,
 		() => 0.08,
@@ -1527,10 +1533,6 @@ self.C3_ExpressionFuncs = [
 			const n2 = p._GetNode(2);
 			const v3 = p._GetNode(3).GetVar();
 			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() + n2.ExpInstVar()), v3.GetValue());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject();
 		},
 		() => 16,
 		p => {
@@ -1693,7 +1695,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => -1,
 		() => "battlefield",
-		() => "spawn_enemy",
 		() => "gameplay",
 		() => "endgame",
 		() => "destroyed_counter",
@@ -1864,7 +1865,6 @@ self.C3_ExpressionFuncs = [
 			return () => (v0.GetValue() * 2);
 		},
 		() => 0.8,
-		() => "final_enemy",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 1.5);
@@ -1873,10 +1873,25 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 204, 24, 255);
 		},
+		() => "adjust_area",
+		() => -100,
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			return () => (v0.GetValue() + v1.GetValue());
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject(0, 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => add(n0.ExpObject(0, 1), n1.ExpObject(0, 3));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject(0, 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => add(n0.ExpObject(0, 2), n1.ExpObject(0, 4));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -1955,6 +1970,7 @@ self.C3_ExpressionFuncs = [
 		() => 75,
 		() => 85,
 		() => 90,
+		() => 92,
 		() => 95,
 		() => 97,
 		p => {
@@ -1992,7 +2008,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => -30,
 		() => -1000,
-		() => -100,
 		() => "bar_main",
 		() => "black_screen_opacity",
 		() => "press_e_to_read",
@@ -2067,11 +2082,6 @@ self.C3_ExpressionFuncs = [
 			const v4 = p._GetNode(4).GetVar();
 			const v5 = p._GetNode(5).GetVar();
 			return () => C3.lerp(n0.ExpObject(), (n1.ExpInstVar() + ((Math.sin(C3.toRadians(v2.GetValue())) * v3.GetValue()) * v4.GetValue())), v5.GetValue());
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			return () => and((and("dist x: ", v0.GetValue()) + " dist y: "), v1.GetValue());
 		}
 ];
 
