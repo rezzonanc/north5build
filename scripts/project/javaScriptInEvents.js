@@ -2,12 +2,12 @@
 
 const scriptsInEvents = {
 
-	async Localize_Event5_Act1(runtime, localVars)
+	async Localize_Event7_Act1(runtime, localVars)
 	{
 		runtime.globalVars.lang = navigator.language.split('-')[0];
 	},
 
-	async Localize_Event11_Act1(runtime, localVars)
+	async Localize_Event13_Act1(runtime, localVars)
 	{
 		const messages_arr = [
 			["en"],

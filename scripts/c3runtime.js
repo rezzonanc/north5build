@@ -2034,6 +2034,7 @@ self.C3_ExpressionFuncs = [
 		() => "local_other",
 		() => "local_messages",
 		() => "local_commands",
+		() => 0.02,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 1);
