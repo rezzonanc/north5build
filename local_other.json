@@ -2,7 +2,7 @@
     "c2array": true,
     "size": [
         2,
-        11,
+        14,
         1
     ],
     "data": [
@@ -39,6 +39,15 @@
             ],
             [
                 "example:"
+            ],
+            [
+                "press E to read"
+            ],
+            [
+                "NEWS"
+            ],
+            [
+                "In response to the enemy’s large-scale offensive on the northern border, the crew of Headquarters “NORTH-5” heroically sacrificed themselves by destroying their base in order to prevent the enemy from capturing it. This deed will forever remain in the memory of our Great Country as a model example of selflessness and devotion to the motherland."
             ]
         ],
         [
@@ -74,6 +83,15 @@
             ],
             [
                 "пример:"
+            ],
+            [
+                "нажми E чтобы прочесть"
+            ],
+            [
+                "НОВОСТИ"
+            ],
+            [
+                "В связи с масштабным наступлением врага на северной границе экипаж штаба «СЕВЕР-5» героически пожертвовал собой, уничтожив свою базу, чтобы не позволить врагу захватить её. Этот поступок навсегда останется в памяти нашей Великой Страны как образцовый пример самоотверженности и преданности Родине."
             ]
         ]
     ]
