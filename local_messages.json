@@ -23,16 +23,16 @@
                 "Scan the battlefield: type “scan” in the console. The dots are enemies. Aim at the enemy using the commands “left”, “right”, “up”, and “down”. Type “fire” to shoot. Example commands: “left 4 up 2 fire”, “down 3 right 4 scan”. You can use “scan” and “fire” separately as well. You can switch between emails using the “up” and “down” commands. Don’t forget to scan the battlefield. Check your mail. Good luck!"
             ],
             [
-                "Mail 2_Command"
+                "Hello_Falcon"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Hi, I’m the operator from the neighboring NORTH-4 base. Are you new here? My callsign is Falcon — nice to meet you. I’m really glad I finally have someone to talk to, because this job is deadly boring. Sitting on your ass all day, aiming the sights, and destroying blips on the radar would drive anyone to the grave. Anyway, we’ll talk again later. I can see two new contacts here, and judging by their speed, they’re tanks. Bye for now!"
             ],
             [
-                "Mail 3_Command"
+                "No title_Falcon"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Falcon calling. How was your first day on the job? Didn’t fall asleep from boredom, did you? Better not doze off — if you do, the Ksarians will reach your base and capture you. Trust me, ending up as a prisoner of those bastards from Ksaria is worse than death. If that happened to me, I’d put myself down on the spot with the first thing I could grab."
             ],
             [
                 "Mail 4_Command"
@@ -58,16 +58,16 @@
                 "Сканируй поле боя: набери \"скан\" в консоль. Точки - это враги. Наведи прицел на врага, используй команды \"лево\", \"право\", \"верх\", \"низ\". Набери \"огонь\" чтобы произвести выстрел. Пример команд: \"лево 4 верх 2 огонь\", \"низ 3 право 4 скан\". Команды \"скан\" и \"огонь\" ты можешь использовать и раздельно. Ты можешь выбирать письма переключаясь между ними командами \"верх\" и \"низ\". Не забывай сканировать поле. Проверяй почту. Удачи!"
             ],
             [
-                "Письмо 2_Командование"
+                "Привет_Сокол"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "Привет, я оператор с соседней базы «СЕВЕР-4». Ты новенький? Мой позывной — Сокол, приятно познакомиться. Я очень рад, что мне теперь есть с кем поговорить, ведь работа — скука смертная. Сидеть целый день на заднице, наводить прицел и уничтожать точки на радаре любого в могилу сведёт. Ну ладно, ещё спишемся: я тут вижу две новые точки, судя по скорости, это танки. Пока!"
             ],
             [
-                "Письмо 3_Командование"
+                "Без темы_Сокол"
             ],
             [
-                "message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text message text  message text message text message text message text message text message text message text message text message text message text message text "
+                "На связи Сокол. Как тебе первый рабочий день? Не уснул от скуки? Смотри не усни: если уснёшь, ксарийцы доберутся до твоей базы и захватят тебя. Поверь, попасть в плен к ублюдкам из Ксарии хуже смерти. Если бы со мной такое случилось, я бы прикончил себя на месте первым попавшимся под руку предметом."
             ],
             [
                 "Письмо 4_Командование"

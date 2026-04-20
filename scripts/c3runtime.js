@@ -1201,6 +1201,21 @@ const C3=self.C3;C3.JobSchedulerRuntime=class extends C3.DefendedBase{constructo
 // scripts/shaders.js
 {
 self["C3_Shaders"] = {};
+self["C3_Shaders"]["warpobject"] = {
+	glsl: "#ifdef GL_FRAGMENT_PRECISION_HIGH\n#define highmedp highp\n#else\n#define highmedp mediump\n#endif\nvarying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform mediump vec2 srcOriginStart;\nuniform mediump vec2 srcOriginEnd;\nuniform highmedp float seconds;\nuniform mediump vec2 pixelSize;\nuniform mediump float devicePixelRatio;\nuniform mediump float layerScale;\nuniform mediump float freqX;\nuniform mediump float freqY;\nuniform mediump float ampX;\nuniform mediump float ampY;\nuniform mediump float speedX;\nuniform mediump float speedY;\nvoid main(void)\n{\nmediump float _2pi = 2.0 * 3.14159265359;\nmediump vec2 srcOriginSize = srcOriginEnd - srcOriginStart;\nmediump vec2 n = ((vTex - srcOriginStart) / srcOriginSize);\nmediump vec2 p = vTex;\np.x += cos(n.y * _2pi * freqY + seconds * speedY * _2pi) * ampY * pixelSize.x * devicePixelRatio * layerScale;\np.y += sin(n.x * _2pi * freqX + seconds * speedX * _2pi) * ampX * pixelSize.y * devicePixelRatio * layerScale;\np = clamp(p, min(srcStart, srcEnd), max(srcStart, srcEnd));\ngl_FragColor = texture2D(samplerFront, p);\n}",
+	glslWebGL2: "",
+	wgsl: "%%SAMPLERFRONT_BINDING%% var samplerFront : sampler;\n%%TEXTUREFRONT_BINDING%% var textureFront : texture_2d<f32>;\nstruct ShaderParams {\nfreqX : f32,\nfreqY : f32,\nampX : f32,\nampY : f32,\nspeedX : f32,\nspeedY : f32\n};\n%%SHADERPARAMS_BINDING%% var<uniform> shaderParams : ShaderParams;\n%%C3PARAMS_STRUCT%%\n%%C3_UTILITY_FUNCTIONS%%\n%%FRAGMENTINPUT_STRUCT%%\n%%FRAGMENTOUTPUT_STRUCT%%\nconst pi2 : f32 = 6.283185307179586;\n@fragment\nfn main(input : FragmentInput) -> FragmentOutput\n{\nvar pixelSize : vec2<f32> = c3_getPixelSize(textureFront);\nvar n : vec2<f32> = c3_srcOriginToNorm(input.fragUV);\nvar p : vec2<f32> = input.fragUV + vec2<f32>(\ncos(n.y * pi2 * shaderParams.freqY + c3Params.seconds * shaderParams.speedY * pi2) * shaderParams.ampY * pixelSize.x * c3Params.devicePixelRatio * c3Params.layerScale,\nsin(n.x * pi2 * shaderParams.freqX + c3Params.seconds * shaderParams.speedX * pi2) * shaderParams.ampX * pixelSize.y * c3Params.devicePixelRatio * c3Params.layerScale\n);\np = c3_clampToSrc(p);\nvar output : FragmentOutput;\noutput.color = textureSample(textureFront, samplerFront, p);\nreturn output;\n}",
+	blendsBackground: false,
+	usesDepth: false,
+	extendBoxHorizontal: 30,
+	extendBoxVertical: 30,
+	crossSampling: false,
+	mustPreDraw: false,
+	preservesOpaqueness: false,
+	supports3dDirectRendering: false,
+	animated: true,
+	parameters: [["freqX",0,"float"],["freqY",0,"float"],["ampX",0,"float"],["ampY",0,"float"],["speedX",0,"float"],["speedY",0,"float"]]
+};
 self["C3_Shaders"]["screen"] = {
 	glsl: "varying mediump vec2 vTex;\nuniform lowp sampler2D samplerFront;\nuniform mediump vec2 srcStart;\nuniform mediump vec2 srcEnd;\nuniform lowp sampler2D samplerBack;\nuniform mediump vec2 destStart;\nuniform mediump vec2 destEnd;\nvoid main(void)\n{\nlowp vec4 front = texture2D(samplerFront, vTex);\nmediump vec2 tex = (vTex - srcStart) / (srcEnd - srcStart);\nlowp vec4 back = texture2D(samplerBack, mix(destStart, destEnd, tex));\nfront.rgb = 1.0 - ((1.0 - front.rgb) * (1.0 - back.rgb * front.a));\ngl_FragColor = front;\n}",
 	glslWebGL2: "",
@@ -1500,65 +1515,22 @@ self.C3_ExpressionFuncs = [
 		() => "general",
 		() => "cheats",
 		() => "typing",
+		() => 100,
+		() => 5,
+		() => 0.08,
+		() => 1,
 		() => "email",
-		() => "localization",
-		() => "local_messages",
+		() => 0,
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0();
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const v3 = p._GetNode(3).GetVar();
+			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() + n2.ExpInstVar()), v3.GetValue());
 		},
-		() => "local_other",
-		() => "local_commands",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => v0.GetValue();
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 1);
-		},
-		() => "",
-		() => "en",
-		() => 0,
-		() => "hint_text",
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject(v1.GetValue(), 1);
-		},
-		() => "title",
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			const v2 = p._GetNode(2).GetVar();
-			const n3 = p._GetNode(3);
-			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 0, "_");
-		},
-		() => "from",
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			const v2 = p._GetNode(2).GetVar();
-			const n3 = p._GetNode(3);
-			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 1, "_");
-		},
-		() => "main_text",
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			const n2 = p._GetNode(2);
-			return () => n0.ExpObject(v1.GetValue(), (n2.ExpInstVar() + 1));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			const n2 = p._GetNode(2);
-			const f3 = p._GetNode(3).GetBoundMethod();
-			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() + n2.ExpInstVar()), (1 - Math.pow(0.0001, f3())));
 		},
 		() => 16,
 		p => {
@@ -1573,6 +1545,7 @@ self.C3_ExpressionFuncs = [
 		() => "gameover",
 		() => "settings",
 		() => "|",
+		() => "",
 		() => "_",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1585,7 +1558,6 @@ self.C3_ExpressionFuncs = [
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => f0(f1());
 		},
-		() => 1,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => and("input_sounds/input_sound_v", Math.round(f0(1, 5)));
@@ -1597,6 +1569,10 @@ self.C3_ExpressionFuncs = [
 			return () => f0(n1.ExpObject());
 		},
 		() => 37,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0();
+		},
 		() => "Backspace",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -1641,6 +1617,10 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
+			return () => v0.GetValue();
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
 			return () => C3.clamp((v0.GetValue() + v1.GetValue()), 0, (v2.GetValue() - 1));
@@ -1664,7 +1644,6 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => C3.clamp((v0.GetValue() + v1.GetValue()), 0, 9);
 		},
-		() => 5,
 		() => 6,
 		() => 7,
 		() => 14,
@@ -1714,7 +1693,9 @@ self.C3_ExpressionFuncs = [
 		},
 		() => -1,
 		() => "battlefield",
+		() => "spawn_enemy",
 		() => "gameplay",
+		() => "endgame",
 		() => "destroyed_counter",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1821,11 +1802,13 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("Y");
 		},
+		() => "WarpObject",
+		() => 20,
+		() => "hide",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("bottom");
 		},
-		() => 100,
 		() => "scan",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1837,16 +1820,24 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 0.1,
 		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar();
+		},
+		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.round(f0(0, 9));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => Math.round(f0(0, 2));
+			return () => f0(100);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(100);
+			return () => Math.round(f0(1, 3));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(0, 2));
 		},
 		() => 25,
 		() => "pehota",
@@ -1859,10 +1850,6 @@ self.C3_ExpressionFuncs = [
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
 			return () => (n0.ExpObject() + Math.round((f1((n2.ExpObject() - n3.ExpObject()), (n4.ExpObject() - n5.ExpObject())) * 0.9)));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpInstVar();
 		},
 		() => -5,
 		p => {
@@ -1877,8 +1864,49 @@ self.C3_ExpressionFuncs = [
 			return () => (v0.GetValue() * 2);
 		},
 		() => 0.8,
+		() => "final_enemy",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() * 1.5);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(0, 204, 24, 255);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => (v0.GetValue() + v1.GetValue());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(142, 255, 66, 255);
+		},
 		() => 640,
 		() => 325,
+		() => "title",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 0, "_");
+		},
+		() => "from",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpObject(v2.GetValue(), n3.ExpInstVar()), 1, "_");
+		},
+		() => "main_text",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			return () => n0.ExpObject(v1.GetValue(), (n2.ExpInstVar() + 1));
+		},
 		() => "new_indicator",
 		() => "new_messages_counter",
 		() => "outline",
@@ -1899,6 +1927,7 @@ self.C3_ExpressionFuncs = [
 			return () => ((v0.GetValue() * 2) + 1);
 		},
 		() => "storyline",
+		() => "hint_text",
 		() => 0.5,
 		p => {
 			const n0 = p._GetNode(0);
@@ -1911,6 +1940,29 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject(v1.GetValue(), 10);
 		},
+		() => 0.01,
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 1);
+		},
+		() => 10,
+		() => 35,
+		() => 42,
+		() => 50,
+		() => 57,
+		() => 65,
+		() => 75,
+		() => 85,
+		() => 90,
+		() => 95,
+		() => 97,
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => (n0.ExpObject() + (v1.GetValue() / 2));
+		},
+		() => 200,
 		() => "volume_select",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1931,6 +1983,7 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => C3.clamp((v0.GetValue() + v1.GetValue()), 0, 5);
 		},
+		() => "en",
 		() => "ru",
 		() => "tutorial",
 		p => {
@@ -1938,7 +1991,88 @@ self.C3_ExpressionFuncs = [
 			return () => (0 - (30 - (v0.GetValue() * 6)));
 		},
 		() => -30,
-		() => -1000
+		() => -1000,
+		() => -100,
+		() => "bar_main",
+		() => "black_screen_opacity",
+		() => "press_e_to_read",
+		() => "black_screen",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpBehavior("black_screen_opacity") * 100);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => (and("[outlineback=#000000][lineThickness=4]", n0.ExpObject(v1.GetValue(), 11)) + "[/lineThickness][/outlineback]");
+		},
+		() => "newspaper",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			const v3 = p._GetNode(3).GetVar();
+			return () => (and(((and("[outlineback=#000000][lineThickness=4]", n0.ExpObject(v1.GetValue(), 12)) + "\n") + "\n"), n2.ExpObject(v3.GetValue(), 13)) + "[/lineThickness][/outlineback]");
+		},
+		() => 0.7,
+		() => "local_other",
+		() => "local_messages",
+		() => "local_commands",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (1 - Math.pow(0.0001, f0()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			const f3 = p._GetNode(3).GetBoundMethod();
+			return () => C3.toDegrees(C3.angleTo(n0.ExpInstVar(), n1.ExpInstVar(), f2(), f3()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => C3.distanceTo(n0.ExpInstVar(), 0, f1(), 0);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => C3.distanceTo(0, n0.ExpInstVar(), 0, f1());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			const v3 = p._GetNode(3).GetVar();
+			return () => C3.clamp(C3.clamp(v0.GetValue(), 0, Math.abs((v1.GetValue() - v2.GetValue()))), 0, v3.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const v3 = p._GetNode(3).GetVar();
+			const v4 = p._GetNode(4).GetVar();
+			const v5 = p._GetNode(5).GetVar();
+			return () => C3.lerp(n0.ExpObject(), (n1.ExpInstVar() + ((Math.cos(C3.toRadians(v2.GetValue())) * v3.GetValue()) * v4.GetValue())), v5.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			const v3 = p._GetNode(3).GetVar();
+			const v4 = p._GetNode(4).GetVar();
+			const v5 = p._GetNode(5).GetVar();
+			return () => C3.lerp(n0.ExpObject(), (n1.ExpInstVar() + ((Math.sin(C3.toRadians(v2.GetValue())) * v3.GetValue()) * v4.GetValue())), v5.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => and((and("dist x: ", v0.GetValue()) + " dist y: "), v1.GetValue());
+		}
 ];
 
 
