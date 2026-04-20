@@ -1570,7 +1570,7 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => f0(n1.ExpObject());
 		},
-		() => 37,
+		() => 29,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
@@ -1842,6 +1842,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => 25,
 		() => "pehota",
+		() => 37,
 		() => "solider",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1850,7 +1851,7 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			const n4 = p._GetNode(4);
 			const n5 = p._GetNode(5);
-			return () => (n0.ExpObject() + Math.round((f1((n2.ExpObject() - n3.ExpObject()), (n4.ExpObject() - n5.ExpObject())) * 0.9)));
+			return () => (n0.ExpObject() + Math.round((f1((n2.ExpObject("left") - n3.ExpObject()), (n4.ExpObject("right") - n5.ExpObject())) * 0.9)));
 		},
 		() => -5,
 		p => {
