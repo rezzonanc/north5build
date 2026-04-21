@@ -1804,7 +1804,6 @@ self.C3_ExpressionFuncs = [
 			return () => f0("Y");
 		},
 		() => "WarpObject",
-		() => 20,
 		() => "hide",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1874,8 +1873,13 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 204, 24, 255);
 		},
+		() => 20,
 		() => "adjust_area",
 		() => -100,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject(0, 1);
@@ -1936,8 +1940,13 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (n0.ExpObject() + v1.GetValue());
 		},
-		() => "top",
-		() => "bottom",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const n2 = p._GetNode(2);
+			const v3 = p._GetNode(3).GetVar();
+			return () => (v0.GetValue() + (Math.floor(((v1.GetValue() - n2.ExpInstVar()) / 2)) * v3.GetValue()));
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => ((v0.GetValue() * 2) + 1);
@@ -2034,11 +2043,6 @@ self.C3_ExpressionFuncs = [
 		() => "local_other",
 		() => "local_messages",
 		() => "local_commands",
-		() => 0.02,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 1);
-		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (1 - Math.pow(0.0001, f0()));
